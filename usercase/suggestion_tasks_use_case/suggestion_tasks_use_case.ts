@@ -1,3 +1,4 @@
+import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException'
 import { FirebaseUserRepository } from '@/infrastructure/repository/users/impl/FirebaseUserRepository'
 import { TaskItem } from '@/model/TaskItem'
 import { GeminiService } from '@/service/gemini/GeminiService'
@@ -28,17 +29,24 @@ export class SuggestionTaskItemUseCase {
     libraries: string[]
     targets: string
     technology: string
+    uid: string
   }): Promise<TaskItem[]> {
+    const { uid } = args
     // プロンプトの生成制限を超えていないか判定
-    const limit = await this.userRepository.checkLimit({ uid: 'test' })
+    const limit = await this.userRepository.checkLimit({
+      uid: uid,
+    })
 
-    if (limit <= this.MAX_PROMPT_LIMIT) {
-      throw new Error('プロンプトの生成制限を超えています。')
+    if (limit >= this.MAX_PROMPT_LIMIT) {
+      throw new GenerateLimitException()
     }
     // プロンプトの作成
     const prompt = this.createPrompt(args)
 
     const result = await this.service.generateSuddgestTodos({ prompt })
+
+    // プロンプトの生成回数をインクリメント
+    await this.userRepository.incrementLimit({ uid: uid })
 
     const text = result.response.text()
 

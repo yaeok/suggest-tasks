@@ -1,22 +1,19 @@
 import { UserDTO } from '@/infrastructure/dto/UserTDO'
+import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
 import { db } from '@/infrastructure/firebase/config'
 import { userRef } from '@/infrastructure/firebase/ref/path'
 import { UserMapper } from '@/infrastructure/mapper/User'
+import { UserRepository } from '@/infrastructure/repository/users/UserRepository'
 import { User } from '@/model/User'
 import {
-  addDoc,
   collection,
   doc,
-  FieldValue,
   getDocs,
   increment,
   query,
   setDoc,
-  updateDoc,
   where,
 } from '@firebase/firestore'
-
-import { UserRepository } from '../UserRepository'
 
 export class FirebaseUserRepository implements UserRepository {
   async getUserById(args: { uid: string }): Promise<User> {
@@ -29,12 +26,12 @@ export class FirebaseUserRepository implements UserRepository {
     const snapshot = await getDocs(q)
 
     if (snapshot.empty) {
-      throw new Error('User not found')
+      throw new UserNotFoundException()
     }
 
     const document = snapshot.docs[0].data()
     const response = UserMapper.toDomain(
-      UserDTO.fromDocumentData({ document, id: document.id })
+      UserDTO.fromDocumentData({ document, id: document.uid })
     )
 
     return response
@@ -43,13 +40,11 @@ export class FirebaseUserRepository implements UserRepository {
   async createUser(args: { user: User }): Promise<void> {
     const { user } = args
 
-    const ref = collection(db, userRef)
+    const ref = doc(db, userRef, user.uid)
 
     const document = UserDTO.fromDomain(user).toDocumentData()
 
-    await addDoc(ref, document).then(async (docRef) => {
-      await updateDoc(docRef, { uid: docRef.id })
-    })
+    await setDoc(ref, document)
   }
 
   async incrementLimit(args: { uid: string }): Promise<void> {
@@ -74,6 +69,10 @@ export class FirebaseUserRepository implements UserRepository {
     const q = query(ref, where('uid', '==', uid))
 
     const snapshot = await getDocs(q)
+
+    if (snapshot.empty) {
+      throw new UserNotFoundException()
+    }
 
     const document = snapshot.docs[0].data()
     const response = UserMapper.toDomain(
