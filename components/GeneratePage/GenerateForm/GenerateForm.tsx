@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form'
 
-import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal'
 import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException'
 import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
 import { Task } from '@/model/Task'
@@ -141,7 +140,7 @@ export default function GenerateForm({
               id='supplment'
               {...register('supplement', { required: false })}
               placeholder='Java1年の経験があります...etc'
-              className='p-2 border-2 rounded-md resize-none'
+              className='p-2 border-2 rounded-md resize-none h-44'
             ></textarea>
           </section>
         </section>
@@ -196,7 +195,7 @@ export default function GenerateForm({
             <label htmlFor='libraries' className='text-xs text-start'>
               使用するライブラリ
             </label>
-            <div className='grid grid-cols-3 gap-2'>
+            <div className='flex flex-row flex-wrap gap-2'>
               {libraries.map((library) => (
                 <label
                   key={library}

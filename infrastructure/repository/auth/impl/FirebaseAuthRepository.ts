@@ -69,6 +69,18 @@ export class FirebaseAuthRepository implements AuthRepository {
     await sendEmailVerification(currentUser)
   }
 
+  async checkEmailVerified(): Promise<boolean> {
+    const currentUser = await auth.currentUser?.reload()
+
+    const emailVerified = auth.currentUser?.emailVerified
+
+    if (currentUser === null) {
+      throw new UserNotFoundException()
+    }
+
+    return emailVerified ?? false
+  }
+
   /**
    * Firebaseのエラーハンドリングを行う
    * @param e エラーオブジェクト
