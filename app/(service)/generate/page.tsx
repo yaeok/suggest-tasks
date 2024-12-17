@@ -10,7 +10,7 @@ import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal
 import { Task } from '@/model/Task'
 import { TaskItem } from '@/model/TaskItem'
 
-export default function TopPage() {
+export default function GeneratePage() {
   const [task, setTask] = useState<Task | null>(null)
   const [taskItems, setTaskItems] = useState<TaskItem[]>([])
   const [loading, setLoading] = useState<boolean>(false)

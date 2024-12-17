@@ -8,7 +8,7 @@ export default function Main(
   return (
     <main>
       <section className='min-h-screen bg-blue-50'>
-        <div className='container min-h-screen mx-auto flex flex-row'>
+        <div className='w-3/4 min-h-screen mx-auto flex flex-row'>
           <section className='h-screen w-1/4 px-4 py-8 top-0 left-0 sticky z-10'>
             <SideNav />
           </section>
