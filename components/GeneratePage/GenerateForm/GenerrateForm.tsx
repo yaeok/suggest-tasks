@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import Loading from '@/components/Loading/Loading'
 import { Task } from '@/model/Task'
 import { TaskItem } from '@/model/TaskItem'
 import { SuggestionTaskItemUseCase } from '@/usercase/suggestion_tasks_use_case/suggestion_tasks_use_case'
@@ -9,6 +7,7 @@ import { SuggestionTaskItemUseCase } from '@/usercase/suggestion_tasks_use_case/
 type GenerateFormProps = {
   setTask: (task: Task) => void
   setTaskItems: (taskItems: TaskItem[]) => void
+  setLoading: (loading: boolean) => void
 }
 
 type GenerateFormType = {
@@ -21,8 +20,8 @@ type GenerateFormType = {
 export default function GenerateForm({
   setTaskItems,
   setTask,
+  setLoading,
 }: GenerateFormProps) {
-  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -63,10 +62,6 @@ export default function GenerateForm({
       setLoading(false)
     }
   })
-
-  if (loading) {
-    return <Loading message='タスク生成中...' />
-  }
 
   const levels = ['未経験', '初心者', '中級者']
   const libraries = [

@@ -1,14 +1,20 @@
+import { FirebaseUserRepository } from '@/infrastructure/repository/users/impl/FirebaseUserRepository'
 import { TaskItem } from '@/model/TaskItem'
 import { GeminiService } from '@/service/gemini/GeminiService'
 
 export class SuggestionTaskItemUseCase {
   // GeminiServiceのインスタンス
   private service: GeminiService
+  // FirebaseUserRepositoryのインスタンス
+  private userRepository: FirebaseUserRepository
+  // プロンプト生成制限
+  private MAX_PROMPT_LIMIT = 3
 
   // コンストラクタ
   constructor() {
     // 依存関係の注入
     this.service = new GeminiService()
+    this.userRepository = new FirebaseUserRepository()
   }
 
   /**
@@ -23,6 +29,48 @@ export class SuggestionTaskItemUseCase {
     targets: string
     technology: string
   }): Promise<TaskItem[]> {
+    // プロンプトの生成制限を超えていないか判定
+    const limit = await this.userRepository.checkLimit({ uid: 'test' })
+
+    if (limit <= this.MAX_PROMPT_LIMIT) {
+      throw new Error('プロンプトの生成制限を超えています。')
+    }
+    // プロンプトの作成
+    const prompt = this.createPrompt(args)
+
+    const result = await this.service.generateSuddgestTodos({ prompt })
+
+    const text = result.response.text()
+
+    const json = JSON.parse(text)
+
+    const response = json.taskItems.map((task: any) => {
+      return new TaskItem({
+        itemId: '',
+        taskId: '',
+        title: task.title,
+        content: task.content,
+        startDate: new Date(task.startDate),
+        endDate: new Date(task.endDate),
+        duration: task.duration,
+        reference: task.reference,
+        isCompleted: false,
+        completedAt: null,
+        createdAt: new Date(),
+        updatedAt: null,
+      })
+    })
+
+    return response
+  }
+
+  private createPrompt(args: {
+    level: string
+    supplement?: string
+    libraries: string[]
+    targets: string
+    technology: string
+  }): string {
     const { level, supplement, libraries, targets, technology } = args
 
     // string[] から string に変換する
@@ -77,29 +125,6 @@ export class SuggestionTaskItemUseCase {
       }
     `
 
-    const result = await this.service.generateSuddgestTodos({ prompt })
-
-    const text = result.response.text()
-
-    const json = JSON.parse(text)
-
-    const response = json.taskItems.map((task: any) => {
-      return new TaskItem({
-        itemId: '',
-        taskId: '',
-        title: task.title,
-        content: task.content,
-        startDate: new Date(task.startDate),
-        endDate: new Date(task.endDate),
-        duration: task.duration,
-        reference: task.reference,
-        isCompleted: false,
-        completedAt: null,
-        createdAt: new Date(),
-        updatedAt: null,
-      })
-    })
-
-    return response
+    return prompt
   }
 }
