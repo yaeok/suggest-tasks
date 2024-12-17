@@ -31,7 +31,7 @@ export default function TaskListPage() {
           return (
             <div
               key={task.taskId}
-              className='w-full px-8 pt-16 pb-8 bg-white rounded-lg shadow-lg'
+              className='w-full p-8 bg-white rounded-lg shadow-lg'
             >
               <h1 className='text-2xl font-bold'>{task.target}</h1>
               <p className='mt-4'>{task.technology}</p>

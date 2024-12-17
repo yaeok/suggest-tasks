@@ -1,8 +1,14 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Header from '@/components/Header/Header'
+import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal'
+import { RoutePath } from '@/constants/RoutePath'
+import { FirebaseAuthException } from '@/infrastructure/exception/FirebaseAuthException'
+import { SignUpUseCase } from '@/usercase/sign_up_use_case/sign_up_use_case'
 
 type SignUpFormType = {
   username: string
@@ -12,6 +18,9 @@ type SignUpFormType = {
 }
 
 export default function SignUpPage() {
+  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+  const [message, setMessage] = useState('')
   const {
     register,
     handleSubmit,
@@ -28,8 +37,20 @@ export default function SignUpPage() {
 
   const password = watch('password')
 
-  const onSubmit = handleSubmit((data: SignUpFormType) => {
-    console.log(data)
+  const onSubmit = handleSubmit(async (data: SignUpFormType) => {
+    try {
+      const { username, email, password } = data
+      const usecase = new SignUpUseCase()
+      await usecase.signUp(email, password, username)
+
+      // ログイン後の処理
+      router.push(RoutePath.GENERATE)
+    } catch (error) {
+      if (error instanceof FirebaseAuthException) {
+        setIsOpen(true)
+        setMessage(error.message)
+      }
+    }
   })
   return (
     <section className='w-screen min-h-screen bg-blue-50 flex flex-col justify-center items-center'>
@@ -149,6 +170,11 @@ export default function SignUpPage() {
           </button>
         </section>
       </form>
+      <ErrorMessageModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        message={message}
+      />
     </section>
   )
 }

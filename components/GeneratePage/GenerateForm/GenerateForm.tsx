@@ -1,13 +1,19 @@
 import { useForm } from 'react-hook-form'
 
+import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal'
+import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException'
+import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
 import { Task } from '@/model/Task'
 import { TaskItem } from '@/model/TaskItem'
+import { useAuthContext } from '@/provider/CurrentUserProvider'
 import { SuggestionTaskItemUseCase } from '@/usercase/suggestion_tasks_use_case/suggestion_tasks_use_case'
 
 type GenerateFormProps = {
   setTask: (task: Task) => void
   setTaskItems: (taskItems: TaskItem[]) => void
   setLoading: (loading: boolean) => void
+  openModal: () => void
+  setMessage: (message: string) => void
 }
 
 type GenerateFormType = {
@@ -21,7 +27,10 @@ export default function GenerateForm({
   setTaskItems,
   setTask,
   setLoading,
+  openModal,
+  setMessage,
 }: GenerateFormProps) {
+  const currentUser = useAuthContext()?.currentUser
   const {
     register,
     handleSubmit,
@@ -38,6 +47,9 @@ export default function GenerateForm({
     setLoading(true)
     const { level, supplement, libraries, technology, targets } = data
     try {
+      if (!currentUser) {
+        throw new UserNotFoundException()
+      }
       const usecase = new SuggestionTaskItemUseCase()
       const result = await usecase.generatetaskItems({
         level,
@@ -45,6 +57,7 @@ export default function GenerateForm({
         libraries,
         targets,
         technology,
+        uid: currentUser.uid,
       })
       setTask({
         taskId: '',
@@ -56,8 +69,17 @@ export default function GenerateForm({
         createdAt: new Date(),
       })
       setTaskItems(result)
-    } catch (error) {
-      console.error(error)
+    } catch (error: any) {
+      if (error instanceof UserNotFoundException) {
+        openModal()
+        setMessage(error.message)
+      } else if (error instanceof GenerateLimitException) {
+        openModal()
+        setMessage(error.message)
+      } else {
+        openModal()
+        setMessage('エラーが発生しました。管理者へお問い合わせください')
+      }
     } finally {
       setLoading(false)
     }
