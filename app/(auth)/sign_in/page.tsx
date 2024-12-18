@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Header from '@/components/Header/Header'
+import FullScreenLoading from '@/components/Loading/FullScreenLoading'
 import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal'
 import { RoutePath } from '@/constants/RoutePath'
 import { FirebaseAuthException } from '@/infrastructure/exception/FirebaseAuthException'
@@ -17,6 +18,7 @@ type SignInFormType = {
 
 export default function SignInPage() {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [message, setMessage] = useState('')
   const {
@@ -32,6 +34,7 @@ export default function SignInPage() {
 
   const onSubmit = handleSubmit(async (data: SignInFormType) => {
     try {
+      setLoading(true)
       const { email, password } = data
       const usecase = new SignInUseCase()
       await usecase.signIn(email, password)
@@ -43,8 +46,15 @@ export default function SignInPage() {
         setIsOpen(true)
         setMessage(error.message)
       }
+    } finally {
+      setLoading(false)
     }
   })
+
+  if (loading) {
+    return <FullScreenLoading message='ログイン中...' />
+  }
+
   return (
     <section className='w-screen min-h-screen bg-blue-50 flex flex-col justify-center items-center'>
       <Header isSignedIn={true} />

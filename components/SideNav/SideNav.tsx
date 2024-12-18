@@ -1,13 +1,22 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import { RoutePath } from '@/constants/RoutePath'
+import { LogOutUseCase } from '@/usercase/log_out_use_case/log_out_use_case'
 
 export default function SideNav() {
-  const handleLogout = async () => {}
+  const router = useRouter()
+  const handleLogout = async () => {
+    setTimeout(async () => {
+      const usecase = new LogOutUseCase()
+      await usecase.logout()
+      router.push(RoutePath.HOME)
+    }, 1500)
+  }
   return (
-    <div className='p-8 bg-white rounded-lg'>
+    <div className='p-8 bg-white rounded-lg shadow-lg'>
       <nav className='flex flex-col gap-16'>
         <ul className='flex flex-col gap-4'>
           <li className='text-lg'>

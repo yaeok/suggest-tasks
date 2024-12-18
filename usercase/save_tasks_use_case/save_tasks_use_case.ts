@@ -1,7 +1,11 @@
-import { FirebaseTaskItemRepository } from '@/infrastructure/repository/taskitems/impl/FirebaseTaskItemRepository'
-import { FirebaseTaskRepository } from '@/infrastructure/repository/tasks/impl/FirebaseTaskRepository'
-import { Task } from '@/model/Task'
-import { TaskItem } from '@/model/TaskItem'
+import {
+  FirebaseTaskItemRepository
+} from '@/infrastructure/repository/taskitems/impl/FirebaseTaskItemRepository';
+import {
+  FirebaseTaskRepository
+} from '@/infrastructure/repository/tasks/impl/FirebaseTaskRepository';
+import { Task } from '@/model/Task';
+import { TaskItem } from '@/model/TaskItem';
 
 export class SavetaskItemsUseCase {
   private taskrepository: FirebaseTaskRepository
@@ -15,8 +19,12 @@ export class SavetaskItemsUseCase {
   async savetaskItems(args: {
     task: Task
     taskItems: TaskItem[]
+    uid: string
   }): Promise<boolean> {
-    const { task, taskItems } = args
+    const { task, taskItems, uid } = args
+
+    // タスクのオーナーIDを設定
+    task.ownerId = uid
 
     const result = await this.taskrepository.saveTask({ task })
 

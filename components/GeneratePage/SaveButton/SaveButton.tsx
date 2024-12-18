@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation'
 import { RoutePath } from '@/constants/RoutePath'
 import { Task } from '@/model/Task'
 import { TaskItem } from '@/model/TaskItem'
+import { useAuthContext } from '@/provider/CurrentUserProvider'
 import { SavetaskItemsUseCase } from '@/usercase/save_tasks_use_case/save_tasks_use_case'
 
 type SaveButtonProps = {
@@ -12,11 +13,16 @@ type SaveButtonProps = {
 
 export default function SaveButton({ taskItems, task }: SaveButtonProps) {
   const router = useRouter()
+  const currentUser = useAuthContext()?.currentUser
   const handleSave = async () => {
+    if (!currentUser) {
+      return
+    }
     const usecase = new SavetaskItemsUseCase()
     const result = await usecase.savetaskItems({
       taskItems: taskItems,
       task: task,
+      uid: currentUser.uid,
     })
     if (result) {
       router.push(RoutePath.TASKS)
