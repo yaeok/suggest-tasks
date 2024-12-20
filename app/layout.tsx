@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Level-UP',
+  title: 'DokuAGT',
   description:
     '駆け出しエンジニアからレベルアップ！何を作ったらいいかわからないを解決します！',
 }
@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ja'>
-      <body className={`font-mono antialiased`}>{children}</body>
+      <body className={`font-serif antialiased`}>{children}</body>
     </html>
   )
 }

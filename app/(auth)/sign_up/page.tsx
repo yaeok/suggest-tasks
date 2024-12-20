@@ -54,7 +54,9 @@ export default function SignUpPage() {
         setMessage(error.message)
       }
     } finally {
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     }
   })
 

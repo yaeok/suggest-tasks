@@ -14,7 +14,7 @@ export default function GenerateList({ taskItems, task }: GenerateListProps) {
       <SaveButton taskItems={taskItems} task={task} />
       <div className='w-full py-4 grid grid-cols-3 gap-4'>
         {taskItems.map((task: TaskItem, index: number) => (
-          <GenerateListItem task={task} index={index} />
+          <GenerateListItem task={task} index={index} key={index} />
         ))}
       </div>
       <SaveButton taskItems={taskItems} task={task} />

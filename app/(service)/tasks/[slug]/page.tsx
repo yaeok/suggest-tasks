@@ -1,12 +1,7 @@
-type TaskDetailPageProps = {
-  slug: string
-}
-
-export default function TaskDetailPage({ slug }: TaskDetailPageProps) {
+export default function TaskDetailPage() {
   return (
     <div>
       <p>TaskDetailPage</p>
-      <p>{slug}</p>
     </div>
   )
 }

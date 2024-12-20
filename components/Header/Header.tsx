@@ -49,7 +49,11 @@ export default function Header({ isSignedIn }: HeaderProps) {
             </li>
             <li>
               <Link href={isSignedIn ? RoutePath.SIGN_UP : RoutePath.SIGN_IN}>
-                <span className='px-8 py-2 bg-blue-500 text-lg rounded-full text-white shadow-lg font-semibold'>
+                <span
+                  className={`px-8 py-3 text-base rounded-full text-white shadow-lg font-semibold ${
+                    isSignedIn ? 'bg-blue-500' : 'bg-green-500'
+                  }`}
+                >
                   {isSignedIn ? '新規登録' : 'ログイン'}
                 </span>
               </Link>

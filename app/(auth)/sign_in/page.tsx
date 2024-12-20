@@ -38,16 +38,17 @@ export default function SignInPage() {
       const { email, password } = data
       const usecase = new SignInUseCase()
       await usecase.signIn(email, password)
-
       // ログイン後の処理
       router.push(RoutePath.GENERATE)
-    } catch (error: any) {
+    } catch (error) {
       if (error instanceof FirebaseAuthException) {
         setIsOpen(true)
         setMessage(error.message)
       }
     } finally {
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     }
   })
 
