@@ -78,26 +78,17 @@ export default function AccountPage() {
                       },
                     })}
                   />
+                  {errors.username && (
+                    <span className='text-red-500 text-xs px-4'>
+                      {errors.username.message}
+                    </span>
+                  )}
                 </div>
                 <div className='space-y-2'>
                   <label className='font-semibold text-gray-500'>
                     メールアドレス
                   </label>
-                  <input
-                    type='email'
-                    placeholder='メールアドレス'
-                    className='w-full p-2 border border-gray-300 rounded-md'
-                    {...register('email', {
-                      required: {
-                        value: true,
-                        message: '必須入力です',
-                      },
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                        message: 'メールアドレスの形式で入力してください',
-                      },
-                    })}
-                  />
+                  <p className='text-lg pl-8'>{currentUser?.email}</p>
                 </div>
               </div>
             </div>

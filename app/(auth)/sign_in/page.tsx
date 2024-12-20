@@ -40,7 +40,7 @@ export default function SignInPage() {
       await usecase.signIn(email, password)
       // ログイン後の処理
       router.push(RoutePath.GENERATE)
-    } catch (error: any) {
+    } catch (error) {
       if (error instanceof FirebaseAuthException) {
         setIsOpen(true)
         setMessage(error.message)

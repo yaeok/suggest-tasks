@@ -68,7 +68,7 @@ export default function GenerateForm({
         createdAt: new Date(),
       })
       setTaskItems(result)
-    } catch (error: any) {
+    } catch (error) {
       if (error instanceof UserNotFoundException) {
         openModal()
         setMessage(error.message)
