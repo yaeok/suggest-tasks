@@ -81,4 +81,23 @@ export class FirebaseUserRepository implements UserRepository {
 
     return response.limit
   }
+
+  async updateUsername(args: {
+    uid: string
+    username: string
+  }): Promise<boolean> {
+    const { uid, username } = args
+
+    const ref = doc(db, userRef, uid)
+
+    await setDoc(
+      ref,
+      {
+        username,
+      },
+      { merge: true }
+    )
+
+    return true
+  }
 }

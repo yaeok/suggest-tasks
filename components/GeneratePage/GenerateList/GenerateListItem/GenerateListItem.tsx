@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { IconContext } from 'react-icons'
 import { BiLogoFlutter } from 'react-icons/bi'
-import { RxHamburgerMenu } from 'react-icons/rx'
 
+import TaskItemEditButton from '@/components/TaskItemEdit/TaskItemEditButton'
 import { TaskItem } from '@/model/TaskItem'
 
 type GenerateListItemProps = {
@@ -24,9 +24,7 @@ export default function GenerateListItem({
           <div className='relative aspect-square p-4 border-2 border-blue-800 rounded-full flex justify-center items-center'>
             <span className='absolute text-sm font-semibold'>{index + 1}</span>
           </div>
-          <button onClick={() => console.log('click')}>
-            <RxHamburgerMenu />
-          </button>
+          <TaskItemEditButton taskItem={task} />
         </div>
         <IconContext.Provider value={{ size: '5em' }}>
           <BiLogoFlutter />

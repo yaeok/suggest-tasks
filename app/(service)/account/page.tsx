@@ -6,13 +6,14 @@ import { useForm } from 'react-hook-form'
 import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal'
 import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
 import { useAuthContext } from '@/provider/CurrentUserProvider'
+import { UpdateUsernameUseCase } from '@/usercase/update_user_name_use_case/update_user_name_use_case'
 
 type AccountEditFormType = {
   username: string
-  email: string
 }
 
 export default function AccountPage() {
+  const currentUserContext = useAuthContext()
   const currentUser = useAuthContext()?.currentUser
   const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -24,7 +25,6 @@ export default function AccountPage() {
   } = useForm<AccountEditFormType>({
     defaultValues: {
       username: currentUser?.username,
-      email: currentUser?.email,
     },
   })
 
@@ -41,9 +41,22 @@ export default function AccountPage() {
     }
   }, [currentUser])
 
-  const onSubmit = handleSubmit((data: AccountEditFormType) => {
-    const { username, email } = data
-    console.log(username, email)
+  const onSubmit = handleSubmit(async (data: AccountEditFormType) => {
+    const { username } = data
+
+    const usecase = new UpdateUsernameUseCase()
+
+    await usecase.updateUsername({
+      uid: currentUser?.uid!,
+      username,
+    })
+
+    currentUserContext?.setCurrentUser({
+      ...currentUser!,
+      username,
+    })
+
+    setIsEdit(false)
   })
 
   if (isEdit) {
@@ -93,7 +106,7 @@ export default function AccountPage() {
               </div>
             </div>
             <button
-              onClick={() => setIsEdit(false)}
+              type='submit'
               className='px-4 py-2 text-white font-semibold bg-blue-500 rounded-full shadow-lg hover:shadow-none hover:translate-y-1 hover:duration-300 transition-all'
             >
               保存する

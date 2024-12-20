@@ -10,6 +10,7 @@ export class TaskItemDTO implements DataTransferObject {
   startDate: Date
   endDate: Date
   duration: number
+  priority: number
   reference: string | null
   isCompleted: boolean
   completedAt: Date | null
@@ -24,6 +25,7 @@ export class TaskItemDTO implements DataTransferObject {
     startDate: Date
     endDate: Date
     duration: number
+    priority: number
     reference: string | null
     isCompleted: boolean
     completedAt: Date | null
@@ -38,6 +40,7 @@ export class TaskItemDTO implements DataTransferObject {
       startDate,
       endDate,
       duration,
+      priority,
       reference,
       isCompleted,
       completedAt,
@@ -52,6 +55,7 @@ export class TaskItemDTO implements DataTransferObject {
     this.startDate = startDate
     this.endDate = endDate
     this.duration = duration
+    this.priority = priority
     this.reference = reference
     this.isCompleted = isCompleted
     this.completedAt = completedAt
@@ -73,6 +77,7 @@ export class TaskItemDTO implements DataTransferObject {
       startDate: document.startDate.toDate(),
       endDate: document.endDate.toDate(),
       duration: document.duration,
+      priority: document.priority,
       reference: document.reference,
       isCompleted: document.isCompleted,
       completedAt: document.completedAt ? document.completedAt.toDate() : null,
@@ -90,6 +95,7 @@ export class TaskItemDTO implements DataTransferObject {
       startDate: domain.startDate,
       endDate: domain.endDate,
       duration: domain.duration,
+      priority: domain.priority,
       reference: domain.reference,
       isCompleted: domain.isCompleted,
       completedAt: domain.completedAt,
@@ -106,6 +112,7 @@ export class TaskItemDTO implements DataTransferObject {
       startDate: this.startDate,
       endDate: this.endDate,
       duration: this.duration,
+      priority: this.priority,
       reference: this.reference,
       isCompleted: this.isCompleted,
       completedAt: this.completedAt,

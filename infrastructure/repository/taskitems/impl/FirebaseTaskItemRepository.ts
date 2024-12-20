@@ -16,6 +16,7 @@ export class FirebaseTaskItemRepository implements TaskItemRepository {
     const ref = collection(db, taskRef, taskId, taskItemRef)
 
     const promise = taskItems.map(async (taskItem) => {
+      taskItem.taskId = taskId
       const docRef = await addDoc(
         ref,
         TaskItemDTO.fromDomain(taskItem).toDocumentData()

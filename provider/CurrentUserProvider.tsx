@@ -17,6 +17,7 @@ import { User } from '@/model/User'
 type AuthContextType = {
   currentUser: User | null
   isEmailVerified: boolean
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -54,6 +55,7 @@ export const CurrentUserProvider = ({ children }: { children: ReactNode }) => {
       value={{
         currentUser,
         isEmailVerified,
+        setCurrentUser,
       }}
     >
       {loading ? (

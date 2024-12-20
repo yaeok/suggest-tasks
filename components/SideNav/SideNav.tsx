@@ -35,14 +35,14 @@ export default function SideNav() {
               タスク一覧
             </Link>
           </li>
-          <li className='text-lg'>
+          {/* <li className='text-lg'>
             <Link
               href={RoutePath.PROMPT}
               className='hover:border-b-2 hover:border-blue-500 hover:text-blue-500'
             >
               プロンプト一覧
             </Link>
-          </li>
+          </li> */}
           <li className='text-lg'>
             <Link
               href={RoutePath.ACCOUNT}
