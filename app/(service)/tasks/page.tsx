@@ -1,20 +1,26 @@
 'use client'
+
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import Loading from '@/components/Loading/Loading'
 import { RoutePath } from '@/constants/RoutePath'
 import { Task } from '@/model/Task'
+import { useAuthContext } from '@/provider/CurrentUserProvider'
 import { GetTasksUseCase } from '@/usercase/get_tasks_use_case/get_tasks_use_case'
 
 export default function TaskListPage() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const currentUser = useAuthContext()?.currentUser
   useEffect(() => {
     const fetchTasks = () => {
+      if (!currentUser) {
+        return
+      }
       setTimeout(async () => {
         const usecase = new GetTasksUseCase()
-        const tasks = await usecase.getTasks()
+        const tasks = await usecase.getTasks({ uid: currentUser.uid })
         setTasks(tasks)
         setLoading(false)
       }, 1000)

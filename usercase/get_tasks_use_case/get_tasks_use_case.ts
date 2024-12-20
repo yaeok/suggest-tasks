@@ -8,10 +8,10 @@ export class GetTasksUseCase {
     this.taskRepository = new FirebaseTaskRepository()
   }
 
-  async getTasks(): Promise<Task[]> {
-    const ownerId = ''
+  async getTasks(args: { uid: string }): Promise<Task[]> {
+    const { uid } = args
 
-    const tasks = await this.taskRepository.getTasks({ ownerId })
+    const tasks = await this.taskRepository.getTasks({ ownerId: uid })
 
     return tasks
   }
