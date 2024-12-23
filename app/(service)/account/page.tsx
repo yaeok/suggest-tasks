@@ -47,7 +47,7 @@ export default function AccountPage() {
     const usecase = new UpdateUsernameUseCase()
 
     await usecase.updateUsername({
-      uid: currentUser?.uid!,
+      uid: currentUser!.uid!,
       username,
     })
 

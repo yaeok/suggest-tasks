@@ -37,7 +37,6 @@ export default function TaskItemEditForm({
   })
   const taskItemsContext = useTaskItemsContext()
 
-  const today = new Date()
   const startDate = watch('startDate')
   const endDate = watch('endDate')
 
