@@ -11,6 +11,7 @@ export class TaskItemMapper {
       startDate: dto.startDate,
       endDate: dto.endDate,
       duration: dto.duration,
+      priority: dto.priority,
       reference: dto.reference,
       isCompleted: dto.isCompleted,
       completedAt: dto.completedAt,

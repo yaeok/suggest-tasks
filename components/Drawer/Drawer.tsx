@@ -6,7 +6,11 @@ import { useState } from 'react'
 import DrawerButton from '@/components/Drawer/DrawerButton/DrawerButton'
 import { RoutePath } from '@/constants/RoutePath'
 
-const Drawer = () => {
+type DrawerProps = {
+  isSignedIn: boolean
+}
+
+export default function Drawer({ isSignedIn }: DrawerProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleDrawer = () => {
@@ -40,9 +44,13 @@ const Drawer = () => {
               </Link>
             </li>
             <li>
-              <Link href={RoutePath.SIGN_UP}>
-                <span className='px-8 py-2 bg-blue-500 text-lg rounded-full text-white shadow-lg font-semibold'>
-                  今すぐ登録
+              <Link href={isSignedIn ? RoutePath.SIGN_UP : RoutePath.SIGN_IN}>
+                <span
+                  className={`px-8 py-3 text-base rounded-full text-white shadow-lg font-semibold ${
+                    isSignedIn ? 'bg-blue-500' : 'bg-green-500'
+                  }`}
+                >
+                  {isSignedIn ? '新規登録' : 'ログイン'}
                 </span>
               </Link>
             </li>
@@ -53,5 +61,3 @@ const Drawer = () => {
     </div>
   )
 }
-
-export default Drawer

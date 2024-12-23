@@ -52,7 +52,7 @@ export class SuggestionTaskItemUseCase {
 
     const json = JSON.parse(text)
 
-    const response = json.taskItems.map((task: any) => {
+    const response = json.taskItems.map((task: any, index: number) => {
       return new TaskItem({
         itemId: '',
         taskId: '',
@@ -61,6 +61,7 @@ export class SuggestionTaskItemUseCase {
         startDate: new Date(task.startDate),
         endDate: new Date(task.endDate),
         duration: task.duration,
+        priority: index,
         reference: task.reference,
         isCompleted: false,
         completedAt: null,

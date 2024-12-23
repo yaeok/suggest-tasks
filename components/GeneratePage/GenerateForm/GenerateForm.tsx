@@ -3,13 +3,12 @@ import { useForm } from 'react-hook-form'
 import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException'
 import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
 import { Task } from '@/model/Task'
-import { TaskItem } from '@/model/TaskItem'
 import { useAuthContext } from '@/provider/CurrentUserProvider'
+import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider'
 import { SuggestionTaskItemUseCase } from '@/usercase/suggestion_tasks_use_case/suggestion_tasks_use_case'
 
 type GenerateFormProps = {
   setTask: (task: Task) => void
-  setTaskItems: (taskItems: TaskItem[]) => void
   setLoading: (loading: boolean) => void
   openModal: () => void
   setMessage: (message: string) => void
@@ -23,7 +22,6 @@ type GenerateFormType = {
   targets: string
 }
 export default function GenerateForm({
-  setTaskItems,
   setTask,
   setLoading,
   openModal,
@@ -42,6 +40,7 @@ export default function GenerateForm({
       targets: 'ToDoアプリ',
     },
   })
+  const taskItemsContext = useTaskItemsContext()
   const onSubmit = handleSubmit(async (data: GenerateFormType) => {
     setLoading(true)
     const { level, supplement, libraries, technology, targets } = data
@@ -67,7 +66,7 @@ export default function GenerateForm({
         completedAt: null,
         createdAt: new Date(),
       })
-      setTaskItems(result)
+      taskItemsContext.setTaskItems(result)
     } catch (error) {
       if (error instanceof UserNotFoundException) {
         openModal()

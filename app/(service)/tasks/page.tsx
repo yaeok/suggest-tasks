@@ -52,8 +52,13 @@ export default function TaskListPage() {
     )
   } else {
     return (
-      <div className='w-full px-8 pt-16 pb-8 bg-white rounded-lg shadow-lg'>
-        <p>タスクがありません</p>
+      <div className='w-full px-8 py-8 bg-white rounded-lg shadow-lg space-y-2'>
+        <h1 className='text-xl font-semibold'>
+          まだタスクが登録されていません
+        </h1>
+        <h1 className='text-xl font-semibold'>
+          タスク生成画面からタスクを生成し、登録してみよう！
+        </h1>
       </div>
     )
   }

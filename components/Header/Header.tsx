@@ -23,7 +23,7 @@ export default function Header({ isSignedIn }: HeaderProps) {
             ～独学サポートエージェント～
           </h3>
         </div>
-        <Drawer />
+        <Drawer isSignedIn={isSignedIn} />
         <nav className='hidden lg:block'>
           <ul className='flex flex-row items-center gap-6'>
             <li>
