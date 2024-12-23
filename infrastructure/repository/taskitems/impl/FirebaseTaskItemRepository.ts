@@ -1,9 +1,17 @@
 import { TaskItemDTO } from '@/infrastructure/dto/TaskItemDTO'
 import { db } from '@/infrastructure/firebase/config'
 import { taskItemRef, taskRef } from '@/infrastructure/firebase/ref/path'
+import { TaskItemMapper } from '@/infrastructure/mapper/TaskItem'
 import { TaskItemRepository } from '@/infrastructure/repository/taskitems/TaskItemRepository'
 import { TaskItem } from '@/model/TaskItem'
-import { addDoc, collection, updateDoc } from '@firebase/firestore'
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from '@firebase/firestore'
 
 export class FirebaseTaskItemRepository implements TaskItemRepository {
   async saveTaskItems(args: {
@@ -27,6 +35,28 @@ export class FirebaseTaskItemRepository implements TaskItemRepository {
     })
 
     await Promise.all(promise)
+
+    return response
+  }
+
+  async getTaskItemsByTaskId(args: { taskId: string }): Promise<TaskItem[]> {
+    const { taskId } = args
+    const response: TaskItem[] = []
+
+    const ref = collection(db, taskRef, taskId, taskItemRef)
+
+    const q = query(ref, where('taskId', '==', taskId))
+
+    const querySnapshot = await getDocs(q)
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data()
+      response.push(
+        TaskItemMapper.toDomain(
+          TaskItemDTO.fromDocumentData({ document: data, id: data.id })
+        )
+      )
+    })
 
     return response
   }
