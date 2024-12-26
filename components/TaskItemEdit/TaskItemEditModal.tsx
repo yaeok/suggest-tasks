@@ -1,8 +1,8 @@
-import { IconContext } from 'react-icons'
-import { RiCloseCircleFill } from 'react-icons/ri'
+import { IconContext } from 'react-icons';
+import { RiCloseCircleFill } from 'react-icons/ri';
 
-import TaskItemEditForm from '@/components/TaskItemEdit/TaskItemEditForm'
-import { TaskItem } from '@/model/TaskItem'
+import TaskItemEditForm from '@/components/TaskItemEdit/TaskItemEditForm';
+import { TaskItem } from '@/model/TaskItem';
 
 type TaskItemEditModalProps = {
   taskItem: TaskItem
@@ -22,7 +22,9 @@ export default function TaskItemEditModal({
         <div className='h-screen flex items-center justify-center'>
           <div className='relative p-4 mx-2 bg-white flex flex-col rounded-lg shadow-lg w-full md:w-2/5'>
             <div className='w-full flex flex-row justify-between items-center'>
-              <h1 className='text-2xl font-semibold text-red-500'>編集画面</h1>
+              <h1 className='text-2xl font-semibold text-black border-b-2 border-blue-500'>
+                編集画面
+              </h1>
               <button onClick={onClose}>
                 <IconContext.Provider value={{ size: '2em', color: 'black' }}>
                   <RiCloseCircleFill />
