@@ -1,9 +1,12 @@
 'use client'
 
-import Loading from '@/components/Loading/Loading'
-import { TaskItem } from '@/model/TaskItem'
-import { GetTaskItemsUseCase } from '@/usercase/get_task_items_use_case/get_task_items_use_case'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+
+import Loading from '@/components/Loading/Loading';
+import { TaskItem } from '@/model/TaskItem';
+import { GetTaskItemsUseCase } from '@/usercase/get_task_items_use_case/get_task_items_use_case';
+
+import TaskItemList from './_components/TaskItemList/TaskItemList';
 
 type TaskDetailPageProps = {
   params: { slug: string }
@@ -19,7 +22,10 @@ export default function TaskDetailPage(props: TaskDetailPageProps) {
         const usecase = new GetTaskItemsUseCase()
 
         const taskItems = await usecase.getTaskItems({ taskId: slug })
-        setTaskItems(taskItems)
+        const sortedTaskItems = taskItems.sort((a, b) => {
+          return a.priority - b.priority
+        })
+        setTaskItems(sortedTaskItems)
         setLoading(false)
       }, 1000)
     }
@@ -31,16 +37,7 @@ export default function TaskDetailPage(props: TaskDetailPageProps) {
   }
   return (
     <div>
-      <h1>TaskDetailPage</h1>
-      <p>slug: {slug}</p>
-      {taskItems.map((taskItem: TaskItem) => {
-        return (
-          <div key={taskItem.itemId}>
-            <p>{taskItem.title}</p>
-            <p>{taskItem.content}</p>
-          </div>
-        )
-      })}
+      <TaskItemList taskItems={taskItems} />
     </div>
   )
 }

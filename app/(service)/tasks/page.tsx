@@ -26,7 +26,7 @@ export default function TaskListPage() {
       }, 1000)
     }
     fetchTasks()
-  }, [])
+  }, [currentUser])
 
   if (loading) {
     return <Loading message='データ取得中...' />

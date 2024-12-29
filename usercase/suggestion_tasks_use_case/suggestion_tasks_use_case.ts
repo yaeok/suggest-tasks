@@ -1,7 +1,9 @@
-import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException'
-import { FirebaseUserRepository } from '@/infrastructure/repository/users/impl/FirebaseUserRepository'
-import { TaskItem } from '@/model/TaskItem'
-import { GeminiService } from '@/service/gemini/GeminiService'
+import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException';
+import {
+  FirebaseUserRepository
+} from '@/infrastructure/repository/users/impl/FirebaseUserRepository';
+import { TaskItem } from '@/model/TaskItem';
+import { GeminiService } from '@/service/gemini/GeminiService';
 
 export class SuggestionTaskItemUseCase {
   // GeminiServiceのインスタンス
@@ -109,16 +111,17 @@ export class SuggestionTaskItemUseCase {
       - CRUDの概念を出来るだけ取り入れる。
 
       # タスク生成条件
-      - タスクの開始日は${strToday}日とする。
-      - 最後のタスクの終了日は、1ヶ月後とする。
-      - 以下の形式でデータを生成してください。
+      - タスクの期間は、開始日は${strToday}日とし、最後のタスクの終了日は、1ヶ月後とする。
       - 参考資料があれば、URLを添付してください。
       - タスクは最低5つ以上作成してください。
       - 画面毎に、1つのタスクを作成してください。
         (例: ログイン画面、ユーザー登録画面、Todo一覧画面、Todo登録画面、Todo詳細画面、etc.)
       - ライブラリを使用する場合、そのライブラリの使い方を学ぶためのタスクを作成してください。
       - ライブラリのタスクは${libraries.length}つ以上作成してください。
-      - デプロイやテストのタスクは不要です。
+      - デプロイやテストのタスクは一切作成しません。
+      - ライブラリが選択されない場合、DB操作のタスクは一切作成しません
+
+      # タスク形式
       {
         "taskItems": [
           {

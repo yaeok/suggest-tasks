@@ -1,19 +1,19 @@
-import Link from 'next/link';
-import { IconContext } from 'react-icons';
-import { BiLogoFlutter } from 'react-icons/bi';
+import Link from 'next/link'
+import { IconContext } from 'react-icons'
+import { BiLogoFlutter } from 'react-icons/bi'
 
-import TaskItemMenuButton from '@/components/GeneratePage/GenerateList/GenerateListItem/TaskItemMenuButton/TaskItemMenuButton';
-import { TaskItem } from '@/model/TaskItem';
+import TaskItemMenuButton from '@/components/GeneratePage/GenerateList/GenerateListItem/TaskItemMenuButton/TaskItemMenuButton'
+import { TaskItem } from '@/model/TaskItem'
 
-type GenerateListItemProps = {
+type TaskItemListItemProps = {
   task: TaskItem
   index: number
 }
 
-export default function GenerateListItem({
+export default function TaskItemListItem({
   task,
   index,
-}: GenerateListItemProps) {
+}: TaskItemListItemProps) {
   return (
     <section
       key={index}

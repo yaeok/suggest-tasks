@@ -1,11 +1,14 @@
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 
-import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException'
-import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
-import { Task } from '@/model/Task'
-import { useAuthContext } from '@/provider/CurrentUserProvider'
-import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider'
-import { SuggestionTaskItemUseCase } from '@/usercase/suggestion_tasks_use_case/suggestion_tasks_use_case'
+import { levels, libraries, targets, technology } from '@/constants/Subject';
+import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException';
+import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException';
+import { Task } from '@/model/Task';
+import { useAuthContext } from '@/provider/CurrentUserProvider';
+import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider';
+import {
+  SuggestionTaskItemUseCase
+} from '@/usercase/suggestion_tasks_use_case/suggestion_tasks_use_case';
 
 type GenerateFormProps = {
   setTask: (task: Task) => void
@@ -34,10 +37,10 @@ export default function GenerateForm({
     formState: { errors },
   } = useForm<GenerateFormType>({
     defaultValues: {
-      level: '未経験',
+      level: levels[0],
       libraries: [],
-      technology: 'flutter',
-      targets: 'ToDoアプリ',
+      technology: technology[0],
+      targets: targets[0],
     },
   })
   const taskItemsContext = useTaskItemsContext()
@@ -83,26 +86,6 @@ export default function GenerateForm({
     }
   })
 
-  const levels = ['未経験', '初心者', '中級者']
-  const libraries = [
-    'riverpods',
-    'flutter_hooks',
-    'freezed',
-    'flutter_gen',
-    'shared_preferences',
-    'go_router',
-    'webview_flutter',
-    'firebase_auth',
-    'firebase_firestore',
-    'firebase_storage',
-  ]
-  const technology = ['flutter']
-  const targets = [
-    'ToDoアプリ',
-    'カレンダーアプリ',
-    'ログイン機能',
-    'ブログ投稿',
-  ]
   return (
     <form className='w-full flex flex-col gap-8' onSubmit={onSubmit}>
       <div className='w-full flex flex-row gap-8'>
