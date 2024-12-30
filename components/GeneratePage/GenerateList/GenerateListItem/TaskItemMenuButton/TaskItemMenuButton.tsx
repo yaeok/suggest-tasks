@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { RxHamburgerMenu } from 'react-icons/rx'
 
 export default function TaskItemMenuButton() {
   const [isOpen, setIsOpen] = useState(false)
