@@ -1,4 +1,4 @@
-import { UserDTO } from '@/infrastructure/dto/UserTDO'
+import { UserDTO } from '@/infrastructure/dto/UserDTO'
 import { User } from '@/model/User'
 
 export class UserMapper {
