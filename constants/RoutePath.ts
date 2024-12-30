@@ -10,4 +10,5 @@ export class RoutePath {
   static readonly TASK = (taskId: string) => `/tasks/${taskId}`
   static readonly PROMPT = '/prompt'
   static readonly ACCOUNT = '/account'
+  static readonly CONTACT = '/contact'
 }

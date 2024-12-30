@@ -1,7 +1,7 @@
 export default function ContactPage() {
   return (
     <div>
-      <p>ContactPageaa</p>
+      <p>ContactPage</p>
     </div>
   )
 }
