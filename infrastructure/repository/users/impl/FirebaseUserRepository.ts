@@ -1,4 +1,4 @@
-import { UserDTO } from '@/infrastructure/dto/UserTDO'
+import { UserDTO } from '@/infrastructure/dto/UserDTO'
 import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
 import { db } from '@/infrastructure/firebase/config'
 import { userRef } from '@/infrastructure/firebase/ref/path'
