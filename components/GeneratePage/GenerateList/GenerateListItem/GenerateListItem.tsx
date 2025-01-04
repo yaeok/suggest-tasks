@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import { IconContext } from 'react-icons';
-import { BiLogoFlutter } from 'react-icons/bi';
+import Link from 'next/link'
+import { IconContext } from 'react-icons'
+import { BiLogoFlutter } from 'react-icons/bi'
 
-import TaskItemMenuButton from '@/components/GeneratePage/GenerateList/GenerateListItem/TaskItemMenuButton/TaskItemMenuButton';
-import { TaskItem } from '@/model/TaskItem';
+import GenerateTaskItemMenuButton from '@/components/GeneratePage/GenerateList/GenerateListItem/GenerateTaskItemMenuButton/GenerateTaskItemMenuButton'
+import { TaskItem } from '@/model/TaskItem'
 
 type GenerateListItemProps = {
   task: TaskItem
@@ -24,8 +24,7 @@ export default function GenerateListItem({
           <div className='relative aspect-square p-4 border-2 border-blue-800 rounded-full flex justify-center items-center'>
             <span className='absolute text-sm font-semibold'>{index + 1}</span>
           </div>
-          {/* <TaskItemEditButton taskItem={task} /> */}
-          <TaskItemMenuButton />
+          <GenerateTaskItemMenuButton />
         </div>
         <IconContext.Provider value={{ size: '5em' }}>
           <BiLogoFlutter />

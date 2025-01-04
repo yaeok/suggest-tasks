@@ -1,9 +1,9 @@
-import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException';
-import {
-  FirebaseUserRepository
-} from '@/infrastructure/repository/users/impl/FirebaseUserRepository';
-import { TaskItem } from '@/model/TaskItem';
-import { GeminiService } from '@/service/gemini/GeminiService';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException'
+import { FirebaseUserRepository } from '@/infrastructure/repository/users/impl/FirebaseUserRepository'
+import { TaskItem } from '@/model/TaskItem'
+import { GeminiService } from '@/service/gemini/GeminiService'
 
 export class SuggestionTaskItemUseCase {
   // GeminiServiceのインスタンス

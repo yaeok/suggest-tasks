@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { IconContext } from 'react-icons'
 import { BiLogoFlutter } from 'react-icons/bi'
 
-import TaskItemMenuButton from '@/components/GeneratePage/GenerateList/GenerateListItem/TaskItemMenuButton/TaskItemMenuButton'
 import { TaskItem } from '@/model/TaskItem'
+import TaskItemMenuButton from './TaskItemMenuButton/TaskItemMenuButton'
 
 type TaskItemListItemProps = {
   task: TaskItem
