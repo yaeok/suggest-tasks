@@ -2,6 +2,10 @@
 
 import { useState } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
+import TaskItemCompleteButton from './TaskItemComplete/TaskItemCompleteButton'
+import TaskItemDeleteButton from './TaskItemDelete/TaskItemDeleteButton'
+import TaskItemEditButton from './TaskItemEdit/TaskItemEditButton'
+import TaskItemWorkButton from './TaskItemWork/TaskItemWorkButton'
 
 export default function TaskItemMenuButton() {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,36 +24,16 @@ export default function TaskItemMenuButton() {
             ></div>
             <div className='w-32 bg-white flex flex-col gap-2 p-4 border-2 border-gray-600 rounded-md shadow-lg items-center absolute z-30 top-8 -left-28'>
               <div>
-                <button
-                  className='px-4 py-2 bg-blue-200 rounded-md text-black font-semibold'
-                  onClick={() => setIsOpen(false)}
-                >
-                  編集
-                </button>
+                <TaskItemEditButton />
               </div>
               <div>
-                <button
-                  className='px-4 py-2 bg-blue-300 rounded-md text-black font-semibold'
-                  onClick={() => setIsOpen(false)}
-                >
-                  削除
-                </button>
+                <TaskItemDeleteButton />
               </div>
               <div>
-                <button
-                  className='px-4 py-2 bg-blue-400 rounded-md text-black font-semibold'
-                  onClick={() => setIsOpen(false)}
-                >
-                  完了
-                </button>
+                <TaskItemCompleteButton />
               </div>
               <div>
-                <button
-                  className='px-4 py-2 bg-blue-500 rounded-md text-black font-semibold'
-                  onClick={() => setIsOpen(false)}
-                >
-                  開始
-                </button>
+                <TaskItemWorkButton />
               </div>
             </div>
           </div>
