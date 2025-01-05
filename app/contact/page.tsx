@@ -32,7 +32,9 @@ export default function ContactPage() {
             <select name='category' className='w-full'>
               <option value=''></option>
               {ListItem.map((ListItem) => (
-                <option value={ListItem}>{ListItem}</option>
+                <option value={ListItem} key={ListItem}>
+                  {ListItem}
+                </option>
               ))}
             </select>
           </div>
