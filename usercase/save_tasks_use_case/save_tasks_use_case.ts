@@ -1,13 +1,24 @@
-import {
-  FirebaseTaskItemRepository
-} from '@/infrastructure/repository/taskitems/impl/FirebaseTaskItemRepository';
-import {
-  FirebaseTaskRepository
-} from '@/infrastructure/repository/tasks/impl/FirebaseTaskRepository';
-import { Task } from '@/model/Task';
-import { TaskItem } from '@/model/TaskItem';
+import { FirebaseTaskItemRepository } from '@/infrastructure/repository/taskitems/impl/FirebaseTaskItemRepository'
+import { FirebaseTaskRepository } from '@/infrastructure/repository/tasks/impl/FirebaseTaskRepository'
+import { Task } from '@/model/Task'
+import { TaskItem } from '@/model/TaskItem'
 
-export class SavetaskItemsUseCase {
+import { UseCase, UseCaseInput, UseCaseOutput } from '../use_case'
+
+interface SavetaskItemsUseCaseInput extends UseCaseInput {
+  task: Task
+  taskItems: TaskItem[]
+  uid: string
+}
+
+interface SavetaskItemsUseCaseOutput extends UseCaseOutput {
+  result: boolean
+}
+
+export class SavetaskItemsUseCase
+  implements
+    UseCase<SavetaskItemsUseCaseInput, Promise<SavetaskItemsUseCaseOutput>>
+{
   private taskrepository: FirebaseTaskRepository
   private taskItemRepository: FirebaseTaskItemRepository
 
@@ -16,12 +27,10 @@ export class SavetaskItemsUseCase {
     this.taskItemRepository = new FirebaseTaskItemRepository()
   }
 
-  async savetaskItems(args: {
-    task: Task
-    taskItems: TaskItem[]
-    uid: string
-  }): Promise<boolean> {
-    const { task, taskItems, uid } = args
+  async execute(
+    input: SavetaskItemsUseCaseInput
+  ): Promise<SavetaskItemsUseCaseOutput> {
+    const { task, taskItems, uid } = input
 
     // タスクのオーナーIDを設定
     task.ownerId = uid
@@ -34,9 +43,9 @@ export class SavetaskItemsUseCase {
     })
 
     if (response.length === 0) {
-      return false
+      return { result: false }
     } else {
-      return true
+      return { result: true }
     }
   }
 }

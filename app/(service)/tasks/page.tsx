@@ -20,8 +20,8 @@ export default function TaskListPage() {
       }
       setTimeout(async () => {
         const usecase = new GetTasksUseCase()
-        const tasks = await usecase.getTasks({ uid: currentUser.uid })
-        setTasks(tasks)
+        const result = await usecase.execute({ uid: currentUser.uid })
+        setTasks(result.tasks)
         setLoading(false)
       }, 1000)
     }

@@ -5,7 +5,28 @@ import { FirebaseUserRepository } from '@/infrastructure/repository/users/impl/F
 import { TaskItem } from '@/model/TaskItem'
 import { GeminiService } from '@/service/gemini/GeminiService'
 
-export class SuggestionTaskItemUseCase {
+import { UseCase, UseCaseInput, UseCaseOutput } from '../use_case'
+
+interface SuggestionTaskItemUseCaseInput extends UseCaseInput {
+  level: string
+  supplement?: string
+  libraries: string[]
+  targets: string
+  technology: string
+  uid: string
+}
+
+interface SuggestionTaskItemUseCaseOutput extends UseCaseOutput {
+  taskItems: TaskItem[]
+}
+
+export class SuggestionTaskItemUseCase
+  implements
+    UseCase<
+      SuggestionTaskItemUseCaseInput,
+      Promise<SuggestionTaskItemUseCaseOutput>
+    >
+{
   // GeminiServiceのインスタンス
   private service: GeminiService
   // FirebaseUserRepositoryのインスタンス
@@ -25,15 +46,10 @@ export class SuggestionTaskItemUseCase {
    * @param args lebel: string, supplement: string, libraries: string[], targets: string
    * @returns Promise<TaskItem[]>
    */
-  async generatetaskItems(args: {
-    level: string
-    supplement?: string
-    libraries: string[]
-    targets: string
-    technology: string
-    uid: string
-  }): Promise<TaskItem[]> {
-    const { uid } = args
+  async execute(
+    input: SuggestionTaskItemUseCaseInput
+  ): Promise<SuggestionTaskItemUseCaseOutput> {
+    const { uid } = input
     // プロンプトの生成制限を超えていないか判定
     const limit = await this.userRepository.checkLimit({
       uid: uid,
@@ -43,7 +59,7 @@ export class SuggestionTaskItemUseCase {
       throw new GenerateLimitException()
     }
     // プロンプトの作成
-    const prompt = this.createPrompt(args)
+    const prompt = this.createPrompt(input)
 
     const result = await this.service.generateSuddgestTodos({ prompt })
 
@@ -72,7 +88,7 @@ export class SuggestionTaskItemUseCase {
       })
     })
 
-    return response
+    return { taskItems: response }
   }
 
   private createPrompt(args: {

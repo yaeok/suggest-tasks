@@ -1,15 +1,15 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-import Header from '@/components/Header/Header';
-import FullScreenLoading from '@/components/Loading/FullScreenLoading';
-import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal';
-import { RoutePath } from '@/constants/RoutePath';
-import { FirebaseAuthException } from '@/infrastructure/exception/FirebaseAuthException';
-import { SignInUseCase } from '@/usercase/sign_in_use_case/sign_in_use_case';
+import Header from '@/components/Header/Header'
+import FullScreenLoading from '@/components/Loading/FullScreenLoading'
+import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal'
+import { RoutePath } from '@/constants/RoutePath'
+import { FirebaseAuthException } from '@/infrastructure/exception/FirebaseAuthException'
+import { SignInUseCase } from '@/usercase/sign_in_use_case/sign_in_use_case'
 
 type SignInFormType = {
   email: string
@@ -45,7 +45,7 @@ export default function SignInPage() {
       // インスタンス生成
       const usecase = new SignInUseCase()
       // ログイン処理実行
-      await usecase.signIn(email, password)
+      await usecase.execute({ email, password })
       // ログイン後の処理
       router.push(RoutePath.GENERATE)
     } catch (error) {
@@ -73,7 +73,7 @@ export default function SignInPage() {
   return (
     <section className='w-full min-h-screen bg-blue-50 flex flex-col justify-center items-center'>
       <Header isSignedIn={true} />
-      <section className='w-full md:w-2/3 lg:w-1/3 py-8 flex flex-col items-center gap-4 bg-white rounded-lg shadow-lg'>
+      <div className='w-full md:w-2/3 lg:w-1/3 py-8 m-16 flex flex-col items-center gap-4 bg-white rounded-lg shadow-lg'>
         <h1 className='text-4xl font-semibold text-black text-center py-4'>
           ログイン
         </h1>
@@ -81,8 +81,8 @@ export default function SignInPage() {
           <section className='w-full flex flex-col items-center justify-center gap-12'>
             <div className='w-full flex flex-col gap-4'>
               <section className='w-full px-4 lg:px-0 flex flex-col gap-1 items-start'>
-                <label htmlFor='' className='text-sm'>
-                  メールアドレス
+                <label htmlFor='email' className='text-sm'>
+                  メールアドレス <span className='text-red-500'>*</span>
                 </label>
                 <input
                   type='email'
@@ -100,14 +100,14 @@ export default function SignInPage() {
                   })}
                 />
                 {errors.email && (
-                  <span className='text-red-500 text-xs px-4 font-semibold'>
+                  <span className='text-red-500 text-xs pl-2 font-semibold'>
                     {errors.email.message}
                   </span>
                 )}
               </section>
               <section className='w-full px-4 lg:px-0 flex flex-col gap-1 items-start'>
-                <label htmlFor='' className='text-sm'>
-                  パスワード
+                <label htmlFor='password' className='text-sm'>
+                  パスワード <span className='text-red-500'>*</span>
                 </label>
                 <input
                   type='password'
@@ -129,7 +129,7 @@ export default function SignInPage() {
                   })}
                 />
                 {errors.password && (
-                  <span className='text-red-500 text-xs px-4 font-semibold'>
+                  <span className='text-red-500 text-xs pl-2 font-semibold'>
                     {errors.password.message}
                   </span>
                 )}
@@ -145,7 +145,7 @@ export default function SignInPage() {
             </div>
           </section>
         </form>
-      </section>
+      </div>
       <ErrorMessageModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

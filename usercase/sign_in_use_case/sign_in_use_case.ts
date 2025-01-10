@@ -1,18 +1,32 @@
-import { FirebaseAuthException } from '@/infrastructure/exception/FirebaseAuthException';
-import {
-  FirebaseAuthRepository
-} from '@/infrastructure/repository/auth/impl/FirebaseAuthRepository';
+import { FirebaseAuthException } from '@/infrastructure/exception/FirebaseAuthException'
+import { FirebaseAuthRepository } from '@/infrastructure/repository/auth/impl/FirebaseAuthRepository'
 
-export class SignInUseCase {
+import { UseCase, UseCaseInput, UseCaseOutput } from '../use_case'
+
+interface SignInUseCaseInput extends UseCaseInput {
+  email: string
+  password: string
+}
+
+interface SignInUseCaseOutput extends UseCaseOutput {
+  result: boolean
+}
+
+export class SignInUseCase
+  implements UseCase<SignInUseCaseInput, Promise<SignInUseCaseOutput>>
+{
   private authRepository: FirebaseAuthRepository
 
   constructor() {
     this.authRepository = new FirebaseAuthRepository()
   }
 
-  async signIn(email: string, password: string): Promise<void> {
+  async execute(input: SignInUseCaseInput): Promise<SignInUseCaseOutput> {
+    const { email, password } = input
     try {
       await this.authRepository.signIn(email, password)
+
+      return { result: true }
     } catch (error) {
       if (error instanceof FirebaseAuthException) {
         console.log(error.message)
