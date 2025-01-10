@@ -5,7 +5,7 @@ import { Task } from '@/model/Task'
 import { TaskItem } from '@/model/TaskItem'
 import { useAuthContext } from '@/provider/CurrentUserProvider'
 import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider'
-import { SavetaskItemsUseCase } from '@/usercase/save_tasks_use_case/save_tasks_use_case'
+import { SaveTaskItemsUseCase } from '@/usercase/save_tasks_use_case/save_tasks_use_case'
 
 type SaveButtonProps = {
   task: Task
@@ -20,7 +20,7 @@ export default function SaveButton({ taskItems, task }: SaveButtonProps) {
     if (!currentUser) {
       return
     }
-    const usecase = new SavetaskItemsUseCase()
+    const usecase = new SaveTaskItemsUseCase()
     const result = await usecase.execute({
       taskItems: taskItems,
       task: task,

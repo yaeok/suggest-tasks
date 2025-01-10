@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 
 import Header from '@/components/Header/Header'
 import { ContactType } from '@/constants/ContactType'
+import { SaveContactUseCase } from '@/usercase/save_contact_use_case/save_contact_use_case'
 
 type ContactFormType = {
   type: string
@@ -15,6 +16,7 @@ export default function ContactPage() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ContactFormType>({
     defaultValues: {
@@ -30,6 +32,11 @@ export default function ContactPage() {
     const { type, email, content } = data
 
     // 送信処理
+    const usecase = new SaveContactUseCase()
+    await usecase.execute({ type, email, content })
+
+    // フォームの初期化
+    reset()
   })
 
   return (
