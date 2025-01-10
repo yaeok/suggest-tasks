@@ -5,19 +5,19 @@ import { TaskItem } from '@/model/TaskItem'
 
 import { UseCase, UseCaseInput, UseCaseOutput } from '../use_case'
 
-interface SavetaskItemsUseCaseInput extends UseCaseInput {
+interface SaveTaskItemsUseCaseInput extends UseCaseInput {
   task: Task
   taskItems: TaskItem[]
   uid: string
 }
 
-interface SavetaskItemsUseCaseOutput extends UseCaseOutput {
+interface SaveTaskItemsUseCaseOutput extends UseCaseOutput {
   result: boolean
 }
 
-export class SavetaskItemsUseCase
+export class SaveTaskItemsUseCase
   implements
-    UseCase<SavetaskItemsUseCaseInput, Promise<SavetaskItemsUseCaseOutput>>
+    UseCase<SaveTaskItemsUseCaseInput, Promise<SaveTaskItemsUseCaseOutput>>
 {
   private taskrepository: FirebaseTaskRepository
   private taskItemRepository: FirebaseTaskItemRepository
@@ -28,8 +28,8 @@ export class SavetaskItemsUseCase
   }
 
   async execute(
-    input: SavetaskItemsUseCaseInput
-  ): Promise<SavetaskItemsUseCaseOutput> {
+    input: SaveTaskItemsUseCaseInput
+  ): Promise<SaveTaskItemsUseCaseOutput> {
     const { task, taskItems, uid } = input
 
     // タスクのオーナーIDを設定
