@@ -5,6 +5,8 @@ export class RoutePath {
   static readonly SIGN_IN = '/sign_in'
   static readonly EMAIL_VERIFICATION = '/email_verification'
 
+  static readonly CONTACT = '/contact'
+
   static readonly GENERATE = '/generate'
   static readonly TASKS = '/tasks'
   static readonly TASK = (taskId: string) => `/tasks/${taskId}`

@@ -3,6 +3,7 @@ import { IconContext } from 'react-icons'
 import { BiLogoFlutter } from 'react-icons/bi'
 
 import { TaskItem } from '@/model/TaskItem'
+
 import TaskItemMenuButton from './TaskItemMenuButton/TaskItemMenuButton'
 
 type TaskItemListItemProps = {
@@ -24,7 +25,6 @@ export default function TaskItemListItem({
           <div className='relative aspect-square p-4 border-2 border-blue-800 rounded-full flex justify-center items-center'>
             <span className='absolute text-sm font-semibold'>{index + 1}</span>
           </div>
-          {/* <TaskItemEditButton taskItem={task} /> */}
           <TaskItemMenuButton />
         </div>
         <IconContext.Provider value={{ size: '5em' }}>

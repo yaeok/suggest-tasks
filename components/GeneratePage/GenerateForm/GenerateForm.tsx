@@ -1,14 +1,12 @@
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'
 
-import { levels, libraries, targets, technology } from '@/constants/Subject';
-import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException';
-import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException';
-import { Task } from '@/model/Task';
-import { useAuthContext } from '@/provider/CurrentUserProvider';
-import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider';
-import {
-  SuggestionTaskItemUseCase
-} from '@/usercase/suggestion_tasks_use_case/suggestion_tasks_use_case';
+import { levels, libraries, targets, technology } from '@/constants/Subject'
+import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimitException'
+import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
+import { Task } from '@/model/Task'
+import { useAuthContext } from '@/provider/CurrentUserProvider'
+import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider'
+import { SuggestionTaskItemUseCase } from '@/usercase/suggestion_tasks_use_case/suggestion_tasks_use_case'
 
 type GenerateFormProps = {
   setTask: (task: Task) => void
@@ -52,7 +50,7 @@ export default function GenerateForm({
         throw new UserNotFoundException()
       }
       const usecase = new SuggestionTaskItemUseCase()
-      const result = await usecase.generatetaskItems({
+      const result = await usecase.execute({
         level,
         supplement,
         libraries,
@@ -69,7 +67,7 @@ export default function GenerateForm({
         completedAt: null,
         createdAt: new Date(),
       })
-      taskItemsContext.setTaskItems(result)
+      taskItemsContext.setTaskItems(result.taskItems)
     } catch (error) {
       if (error instanceof UserNotFoundException) {
         openModal()

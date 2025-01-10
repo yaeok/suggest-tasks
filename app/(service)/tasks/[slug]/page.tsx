@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-import Loading from '@/components/Loading/Loading';
-import { TaskItem } from '@/model/TaskItem';
-import { GetTaskItemsUseCase } from '@/usercase/get_task_items_use_case/get_task_items_use_case';
+import Loading from '@/components/Loading/Loading'
+import { TaskItem } from '@/model/TaskItem'
+import { GetTaskItemsUseCase } from '@/usercase/get_task_items_use_case/get_task_items_use_case'
 
-import TaskItemList from './_components/TaskItemList/TaskItemList';
+import TaskItemList from './_components/TaskItemList/TaskItemList'
 
 type TaskDetailPageProps = {
   params: { slug: string }
@@ -21,8 +21,8 @@ export default function TaskDetailPage(props: TaskDetailPageProps) {
       setTimeout(async () => {
         const usecase = new GetTaskItemsUseCase()
 
-        const taskItems = await usecase.getTaskItems({ taskId: slug })
-        const sortedTaskItems = taskItems.sort((a, b) => {
+        const result = await usecase.execute({ taskId: slug })
+        const sortedTaskItems = result.taskItems.sort((a, b) => {
           return a.priority - b.priority
         })
         setTaskItems(sortedTaskItems)

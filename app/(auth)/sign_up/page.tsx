@@ -1,15 +1,15 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-import Header from '@/components/Header/Header';
-import FullScreenLoading from '@/components/Loading/FullScreenLoading';
-import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal';
-import { RoutePath } from '@/constants/RoutePath';
-import { FirebaseAuthException } from '@/infrastructure/exception/FirebaseAuthException';
-import { SignUpUseCase } from '@/usercase/sign_up_use_case/sign_up_use_case';
+import Header from '@/components/Header/Header'
+import FullScreenLoading from '@/components/Loading/FullScreenLoading'
+import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal'
+import { RoutePath } from '@/constants/RoutePath'
+import { FirebaseAuthException } from '@/infrastructure/exception/FirebaseAuthException'
+import { SignUpUseCase } from '@/usercase/sign_up_use_case/sign_up_use_case'
 
 type SignUpFormType = {
   username: string
@@ -52,7 +52,7 @@ export default function SignUpPage() {
       // インスタンス生成
       const usecase = new SignUpUseCase()
       // 新規登録処理実行
-      await usecase.signUp(email, password, username)
+      await usecase.execute({ email, password, username })
       // 新規登録後の処理
       router.push(RoutePath.EMAIL_VERIFICATION)
     } catch (error) {
@@ -80,7 +80,7 @@ export default function SignUpPage() {
   return (
     <section className='w-full min-h-screen bg-blue-50 flex flex-col justify-center items-center'>
       <Header isSignedIn={false} />
-      <section className='w-full md:w-2/3 lg:w-1/3 py-8 flex flex-col items-center gap-4 bg-white rounded-lg shadow-lg'>
+      <div className='w-full md:w-2/3 lg:w-1/3 py-8 m-16 flex flex-col items-center gap-4 bg-white rounded-lg shadow-lg'>
         <h1 className='text-4xl font-semibold text-black text-center py-4'>
           新規登録
         </h1>
@@ -88,8 +88,8 @@ export default function SignUpPage() {
           <section className='w-full flex flex-col items-center justify-center gap-12'>
             <div className='w-full flex flex-col gap-4'>
               <section className='w-full px-4 lg:px-0 flex flex-col gap-1 items-start'>
-                <label htmlFor='' className='text-sm'>
-                  ユーザ名
+                <label htmlFor='username' className='text-sm'>
+                  ユーザ名 <span className='text-red-500'>*</span>
                 </label>
                 <input
                   type='text'
@@ -107,14 +107,14 @@ export default function SignUpPage() {
                   })}
                 />
                 {errors.username && (
-                  <span className='text-red-500 text-xs px-4 font-semibold'>
+                  <span className='text-red-500 text-xs pl-2 font-semibold'>
                     {errors.username.message}
                   </span>
                 )}
               </section>
               <section className='w-full px-4 lg:px-0 flex flex-col gap-1 items-start'>
-                <label htmlFor='' className='text-sm'>
-                  メールアドレス
+                <label htmlFor='email' className='text-sm'>
+                  メールアドレス <span className='text-red-500'>*</span>
                 </label>
                 <input
                   type='email'
@@ -132,14 +132,14 @@ export default function SignUpPage() {
                   })}
                 />
                 {errors.email && (
-                  <span className='text-red-500 text-xs px-4 font-semibold'>
+                  <span className='text-red-500 text-xs pl-2 font-semibold'>
                     {errors.email.message}
                   </span>
                 )}
               </section>
               <section className='w-full px-4 lg:px-0 flex flex-col gap-1 items-start'>
-                <label htmlFor='' className='text-sm'>
-                  パスワード
+                <label htmlFor='password' className='text-sm'>
+                  パスワード <span className='text-red-500'>*</span>
                 </label>
                 <input
                   type='password'
@@ -161,14 +161,14 @@ export default function SignUpPage() {
                   })}
                 />
                 {errors.password && (
-                  <span className='text-red-500 text-xs px-4 font-semibold'>
+                  <span className='text-red-500 text-xs pl-2 font-semibold'>
                     {errors.password.message}
                   </span>
                 )}
               </section>
               <section className='w-full px-4 lg:px-0 flex flex-col gap-1 items-start'>
-                <label htmlFor='' className='text-sm'>
-                  パスワード（確認）
+                <label htmlFor='confirmPassword' className='text-sm'>
+                  パスワード（確認） <span className='text-red-500'>*</span>
                 </label>
                 <input
                   type='password'
@@ -184,7 +184,7 @@ export default function SignUpPage() {
                   })}
                 />
                 {errors.confirmPassword && (
-                  <span className='text-red-500 text-xs px-4 font-semibold'>
+                  <span className='text-red-500 text-xs pl-2 font-semibold'>
                     {errors.confirmPassword.message}
                   </span>
                 )}
@@ -200,7 +200,7 @@ export default function SignUpPage() {
             </div>
           </section>
         </form>
-      </section>
+      </div>
       <ErrorMessageModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

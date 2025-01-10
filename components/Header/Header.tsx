@@ -1,7 +1,7 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-import Drawer from '@/components/Drawer/Drawer';
-import { RoutePath } from '@/constants/RoutePath';
+import Drawer from '@/components/Drawer/Drawer'
+import { RoutePath } from '@/constants/RoutePath'
 
 type HeaderProps = {
   isSignedIn: boolean
@@ -41,9 +41,9 @@ export default function Header({ isSignedIn, isTopPage }: HeaderProps) {
               </Link>
             </li>
             <li className={isTopPage ? '' : 'hidden'}>
-              <Link href={RoutePath.HOME}>
+              <Link href={RoutePath.CONTACT}>
                 <span className='hover:border-b-2 hover:border-blue-500 hover:text-blue-500'>
-                  HOME
+                  CONTACT
                 </span>
               </Link>
             </li>

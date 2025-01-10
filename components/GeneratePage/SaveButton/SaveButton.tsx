@@ -21,7 +21,7 @@ export default function SaveButton({ taskItems, task }: SaveButtonProps) {
       return
     }
     const usecase = new SavetaskItemsUseCase()
-    const result = await usecase.savetaskItems({
+    const result = await usecase.execute({
       taskItems: taskItems,
       task: task,
       uid: currentUser.uid,

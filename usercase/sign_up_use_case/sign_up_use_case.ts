@@ -3,7 +3,21 @@ import { FirebaseAuthRepository } from '@/infrastructure/repository/auth/impl/Fi
 import { FirebaseUserRepository } from '@/infrastructure/repository/users/impl/FirebaseUserRepository'
 import { User } from '@/model/User'
 
-export class SignUpUseCase {
+import { UseCase, UseCaseInput, UseCaseOutput } from '../use_case'
+
+interface SignUpUseCaseInput extends UseCaseInput {
+  email: string
+  password: string
+  username: string
+}
+
+interface SignUpUseCaseOutput extends UseCaseOutput {
+  result: boolean
+}
+
+export class SignUpUseCase
+  implements UseCase<SignUpUseCaseInput, Promise<SignUpUseCaseOutput>>
+{
   private authRepository: FirebaseAuthRepository
   private userRepository: FirebaseUserRepository
 
@@ -12,11 +26,8 @@ export class SignUpUseCase {
     this.userRepository = new FirebaseUserRepository()
   }
 
-  async signUp(
-    email: string,
-    password: string,
-    username: string
-  ): Promise<void> {
+  async execute(input: SignUpUseCaseInput): Promise<SignUpUseCaseOutput> {
+    const { email, password, username } = input
     try {
       const response = await this.authRepository.signUp(email, password)
       const user = new User({
@@ -27,9 +38,13 @@ export class SignUpUseCase {
         createdAt: new Date(),
       })
       await this.userRepository.createUser({ user })
+
+      return { result: true }
     } catch (error) {
       if (error instanceof FirebaseAuthException) {
         throw new FirebaseAuthException(error.message, error.code)
+      } else {
+        throw new Error('エラーが発生しました。開発者へ連絡してください。')
       }
     }
   }
