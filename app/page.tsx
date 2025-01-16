@@ -1,12 +1,12 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header/Header'
 
 export default function LandingPage() {
   return (
     <section className='w-full min-h-screen bg-blue-50'>
       <Header isSignedIn={true} isTopPage={true} />
-      <section className='w-full mx-auto pt-56 pb-32 flex flex-col items-center'>
+      <section className='w-full mx-auto pt-40 pb-32 flex flex-col items-center'>
         <div className='py-16 space-y-4'>
           <div className='space-y-1'>
             <h1 className='text-5xl font-extrabold text-center text-blue-900'>
@@ -22,7 +22,10 @@ export default function LandingPage() {
               DokuAGTはプログラミング初学者、駆け出しエンジニアへ向けた学習支援サービスです
             </h2>
             <h2 className='text-xl font-semibold text-center text-blue-900'>
-              「何を作ったらいいかわからない」を解決します！
+              「何を作ったらいいかわからない」を解決します
+            </h2>
+            <h2 className='text-xl font-semibold text-center text-blue-900'>
+              開発を通して、プログラミングスキルを向上させましょう
             </h2>
           </div>
         </div>
@@ -46,7 +49,7 @@ export default function LandingPage() {
                 何か作って学びたいが、何を作ったらいいかわからない
               </div>
               <div className='relative inline-block ml-5 mr-12 px-8 py-4 border-2 border-black rounded-lg bg-white text-left text-xl text-black speechBubbleLeft'>
-                基礎的な知識に加え、実務で使えるスキルを身につけたい
+                基礎的な知識はあるが、何から始めたらいいかわからない
               </div>
             </section>
           </div>
@@ -64,9 +67,9 @@ export default function LandingPage() {
               <div className='relative w-full lg:w-2/3 px-4 py-8 sm:p-8 bg-white flex flex-col rounded-lg shadow-lg hover:shadow-none hover:-translate-y-2 duration-300 transition-all'>
                 <h1 className='text-2xl font-semibold'>実装の提案</h1>
                 <p className='p-2'>
-                  ToDoアプリやカレンダー、ブログアプリ等、基礎的なアプリケーションの実装を提案します
+                  ToDoアプリやカレンダーアプリ、ブログ等、基礎的なアプリケーションの実装を提案します
                   <br />
-                  また、実装の手順も提案するため、何から始めたらいいかわからないという状態が解消されます！
+                  提案されるアプリケーションは、自分のスキルに合わせて選択することが可能です！
                 </p>
                 <Image
                   src='/images/check_mark.png'
@@ -81,7 +84,7 @@ export default function LandingPage() {
                 <p className='p-2'>
                   基礎的なアプリケーション開発のため、実装期間は1ヶ月を想定しており、素早い開発が出来るような提案を行います！
                   <br />
-                  また、タスクの生成は1日3回まで生成出来るため、違うアプリをいくつか実装することが可能です！
+                  タスクの生成は3回まで生成出来るため、違うアプリをいくつか実装することが可能です！
                 </p>
                 <Image
                   src='/images/check_mark.png'
@@ -94,9 +97,13 @@ export default function LandingPage() {
               <div className='relative w-full lg:w-2/3 px-4 py-8 sm:p-8 bg-white flex flex-col rounded-lg shadow-lg hover:shadow-none hover:-translate-y-2 duration-300 transition-all'>
                 <h1 className='text-2xl font-semibold'>幅広い学習</h1>
                 <p className='p-2'>
-                  難易度は、初学者向けから中級者向けまで提案しており、自分のスキルに合わせたアプリケーション開発が可能です！
+                  難易度は、初学者向けから中級者向けに提案しており、自分のスキルに合わせたアプリケーション開発が可能です！
                   <br />
-                  また、Flutterのライブラリを使用したアプリケーション開発も提案しており、幅広い学習が可能です！
+                  現在は、Next.jsとReact.jsを使用したアプリケーションの提案を行っております！
+                  <br />
+                  <span className='text-red-500 font-semibold'>
+                    ※今後の実装で開発言語を追加していく予定です
+                  </span>
                 </p>
                 <Image
                   src='/images/check_mark.png'
@@ -170,7 +177,7 @@ export default function LandingPage() {
                   </div>
                   <div className='w-full flex items-center justify-center p-4'>
                     <p className='text-sm md:text-base text-center font-semibold text-gray-500'>
-                      基礎的なアプリケーションの開発を実施するため、
+                      CRUD等の基礎的な機能を搭載したアプリケーションの開発を選択できるため、
                       <br />
                       1ヶ月で全て実装出来るような提案を行います！
                     </p>
@@ -199,14 +206,23 @@ export default function LandingPage() {
                   </div>
                   <div className='w-full flex items-center justify-center p-4'>
                     <p className='text-sm md:text-base text-center font-semibold text-gray-500'>
-                      学習時間、完了したタスク、未完了のタスクを可視化し、
-                      <br />
-                      学習の進捗を確認することができます!
+                      タスクの完了・未完了を可視化し、学習の進捗を確認することができます!
                     </p>
                   </div>
                 </div>
               </div>
             </section>
+          </div>
+
+          <div className='relative w-full py-16 flex flex-col items-center gap-8'>
+            <div className='w-full absolute flex justify-center'>
+              <h3 className='text-9xl opacity-5'>CONTACT</h3>
+            </div>
+            <div className='w-full space-y-8 pt-16 pb-8'>
+              <h1 className='text-4xl font-bold text-center text-blue-900'>
+                よくあるお問い合わせ
+              </h1>
+            </div>
           </div>
         </div>
       </section>

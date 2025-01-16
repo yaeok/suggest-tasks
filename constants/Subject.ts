@@ -5,15 +5,15 @@ export const libraries = [
   'firebase firestore',
   'firebase storage',
   'Redux',
-  'Recoil',
   'Zustand',
+  'Jotai',
 ]
-export const technology = ['Next.js', 'React']
+export const technology = ['Next.js', 'React.js']
 export const subTechnology = ['TypeScript', 'JavaScript']
 export const targets = [
   'ToDoアプリ',
   'カレンダーアプリ',
+  'ブログ',
   '写真投稿アプリ',
   'チャットアプリ',
-  'ログイン・新規登録機能',
 ]
