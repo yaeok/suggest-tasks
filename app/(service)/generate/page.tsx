@@ -2,17 +2,18 @@
 
 import { useState } from 'react'
 
-import GenerateForm from '@/components/GeneratePage/GenerateForm/GenerateForm'
-import GenerateList from '@/components/GeneratePage/GenerateList/GenerateList'
-import NonGenerate from '@/components/GeneratePage/NonGenerate/NonGenerate'
 import Loading from '@/components/Loading/Loading'
 import ErrorMessageModal from '@/components/Modal/ErrorMessage/ErrorMessageModal'
 import { Task } from '@/model/Task'
-import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider'
+import { useGenerateTaskItemContext } from '@/provider/GenerateTaskItemProvider'
+
+import GenerateForm from './_components/GenerateForm/GenerateForm'
+import GenerateList from './_components/GenerateList/GenerateList'
+import NonGenerate from './_components/NonGenerate/NonGenerate'
 
 export default function GeneratePage() {
   const [task, setTask] = useState<Task | null>(null)
-  const taskItemsContext = useTaskItemsContext()
+  const taskItemsContext = useGenerateTaskItemContext()
   const [loading, setLoading] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState(false)
   const [message, setMessage] = useState('')

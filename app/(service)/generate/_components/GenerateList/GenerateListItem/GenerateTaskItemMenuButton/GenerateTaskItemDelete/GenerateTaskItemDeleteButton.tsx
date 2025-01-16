@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import TaskItemDeleteModal from './TaskItemDeleteModal'
+import GenerateTaskItemDeleteModal from './GenerateTaskItemDeleteModal'
 
-export default function TaskItemDeleteButton() {
+export default function GenerateTaskItemDeleteButton() {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
@@ -12,7 +12,10 @@ export default function TaskItemDeleteButton() {
       >
         削除
       </button>
-      <TaskItemDeleteModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <GenerateTaskItemDeleteModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
     </>
   )
 }

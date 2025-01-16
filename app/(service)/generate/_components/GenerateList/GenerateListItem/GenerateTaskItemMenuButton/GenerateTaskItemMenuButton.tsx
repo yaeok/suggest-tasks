@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 
+import GenerateTaskItemDeleteButton from './GenerateTaskItemDelete/GenerateTaskItemDeleteButton'
+import GenerateTaskItemEditButton from './GenerateTaskItemEdit/GenerateTaskItemEditButton'
+
 export default function GenerateTaskItemMenuButton() {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -19,12 +22,8 @@ export default function GenerateTaskItemMenuButton() {
               onClick={() => setIsOpen(false)}
             ></div>
             <div className='w-20 bg-white flex flex-col gap-2 p-4 border-2 border-gray-600 rounded-md shadow-lg items-center absolute z-30 top-8 -left-16'>
-              <div>
-                <button>編集</button>
-              </div>
-              <div>
-                <button>削除</button>
-              </div>
+              <GenerateTaskItemEditButton />
+              <GenerateTaskItemDeleteButton />
             </div>
           </div>
         )}

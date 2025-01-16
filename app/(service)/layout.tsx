@@ -1,7 +1,6 @@
 import AuthGuard from '@/components/AuthGuard/AuthGuard'
 import Main from '@/components/Main/Main'
 import { CurrentUserProvider } from '@/provider/CurrentUserProvider'
-import { GenerateTaskItemsProvider } from '@/provider/GenerateTaskItemsProvider'
 
 export default function RootLayout({
   children,
@@ -11,9 +10,7 @@ export default function RootLayout({
   return (
     <CurrentUserProvider>
       <AuthGuard>
-        <GenerateTaskItemsProvider>
-          <Main>{children}</Main>
-        </GenerateTaskItemsProvider>
+        <Main>{children}</Main>
       </AuthGuard>
     </CurrentUserProvider>
   )

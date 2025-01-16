@@ -4,7 +4,7 @@ import { RoutePath } from '@/constants/RoutePath'
 import { Task } from '@/model/Task'
 import { TaskItem } from '@/model/TaskItem'
 import { useAuthContext } from '@/provider/CurrentUserProvider'
-import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider'
+import { useGenerateTaskItemContext } from '@/provider/GenerateTaskItemProvider'
 import { SaveTaskItemsUseCase } from '@/usercase/save_tasks_use_case/save_tasks_use_case'
 
 type SaveButtonProps = {
@@ -15,7 +15,7 @@ type SaveButtonProps = {
 export default function SaveButton({ taskItems, task }: SaveButtonProps) {
   const router = useRouter()
   const currentUser = useAuthContext()?.currentUser
-  const taskItemsContext = useTaskItemsContext()
+  const generateTaskItemContext = useGenerateTaskItemContext()
   const handleSave = async () => {
     if (!currentUser) {
       return
@@ -27,7 +27,7 @@ export default function SaveButton({ taskItems, task }: SaveButtonProps) {
       uid: currentUser.uid,
     })
     if (result) {
-      taskItemsContext.setTaskItems([])
+      generateTaskItemContext.setTaskItems([])
       router.push(RoutePath.TASKS)
     }
   }

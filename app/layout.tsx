@@ -1,6 +1,14 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
+import { Shippori_Mincho } from 'next/font/google'
+
+export const shippori_mincho = Shippori_Mincho({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   title: 'DokuAGT',
   description:
@@ -14,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ja'>
-      <body className={`font-serif antialiased`}>{children}</body>
+      <body className={`${shippori_mincho.className} antialiased`}>
+        {children}
+      </body>
     </html>
   )
 }

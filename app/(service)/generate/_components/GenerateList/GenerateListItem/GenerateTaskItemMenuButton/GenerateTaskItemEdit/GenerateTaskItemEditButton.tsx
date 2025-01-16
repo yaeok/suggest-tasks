@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import TaskItemEditModal from './TaskItemEditModal'
+import GenerateTaskItemEditModal from './GenerateTaskItemEditModal'
 
-export default function TaskItemEditButton() {
+export default function GenerateTaskItemEditButton() {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
@@ -12,7 +12,10 @@ export default function TaskItemEditButton() {
       >
         編集
       </button>
-      <TaskItemEditModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <GenerateTaskItemEditModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
     </>
   )
 }

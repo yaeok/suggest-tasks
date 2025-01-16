@@ -5,7 +5,7 @@ import { GenerateLimitException } from '@/infrastructure/exception/GenerateLimit
 import { UserNotFoundException } from '@/infrastructure/exception/UserNotFoundException'
 import { Task } from '@/model/Task'
 import { useAuthContext } from '@/provider/CurrentUserProvider'
-import { useTaskItemsContext } from '@/provider/GenerateTaskItemsProvider'
+import { useGenerateTaskItemContext } from '@/provider/GenerateTaskItemProvider'
 import { SuggestionTaskItemUseCase } from '@/usercase/suggestion_tasks_use_case/suggestion_tasks_use_case'
 
 type GenerateFormProps = {
@@ -41,7 +41,7 @@ export default function GenerateForm({
       targets: targets[0],
     },
   })
-  const taskItemsContext = useTaskItemsContext()
+  const generateTaskItemContext = useGenerateTaskItemContext()
   const onSubmit = handleSubmit(async (data: GenerateFormType) => {
     setLoading(true)
     const { level, supplement, libraries, technology, targets } = data
@@ -67,7 +67,7 @@ export default function GenerateForm({
         completedAt: null,
         createdAt: new Date(),
       })
-      taskItemsContext.setTaskItems(result.taskItems)
+      generateTaskItemContext.setTaskItems(result.taskItems)
     } catch (error) {
       if (error instanceof UserNotFoundException) {
         openModal()
