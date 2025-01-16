@@ -40,7 +40,7 @@ export default function LogoutModal({ isOpen, onClose }: LogoutModalProps) {
             <p className='text-lg font-semibold'>本当にログアウトしますか？</p>
             <button
               onClick={handleLogout}
-              className='px-4 py-2 text-white font-semibold bg-rose-500 rounded-full shadow-lg hover:shadow-none hover:translate-y-2 hover:duration-300 transition-all'
+              className='px-4 py-2 text-white font-semibold bg-rose-500 rounded-full shadow-lg hover:shadow-none'
             >
               ログアウト
             </button>

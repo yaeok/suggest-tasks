@@ -7,7 +7,7 @@ export default function TaskItemDeleteButton() {
   return (
     <>
       <button
-        className='px-4 py-2 bg-blue-500 rounded-md text-white font-semibold'
+        className='text-black font-semibold'
         onClick={() => setIsOpen(true)}
       >
         削除

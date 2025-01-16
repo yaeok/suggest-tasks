@@ -4,21 +4,22 @@ import { createContext, useContext, useState } from 'react'
 
 import { TaskItem } from '@/model/TaskItem'
 
-type TaskItemsContextType = {
+type GenerateTaskItemContextType = {
   taskItems: TaskItem[]
   setTaskItems: React.Dispatch<React.SetStateAction<TaskItem[]>>
   updateTaskItemByPriority: (taskItem: TaskItem) => void
 }
 
-const TaskItemsContext = createContext<TaskItemsContextType>({
+const GenerateTaskItemContext = createContext<GenerateTaskItemContextType>({
   taskItems: [],
   setTaskItems: () => {},
   updateTaskItemByPriority: () => {},
 })
 
-export const useTaskItemsContext = () => useContext(TaskItemsContext)
+export const useGenerateTaskItemContext = () =>
+  useContext(GenerateTaskItemContext)
 
-export const GenerateTaskItemsProvider = ({
+export const GenerateTaskItemProvider = ({
   children,
 }: {
   children: React.ReactNode
@@ -36,10 +37,10 @@ export const GenerateTaskItemsProvider = ({
   }
 
   return (
-    <TaskItemsContext.Provider
+    <GenerateTaskItemContext.Provider
       value={{ taskItems, setTaskItems, updateTaskItemByPriority }}
     >
       {children}
-    </TaskItemsContext.Provider>
+    </GenerateTaskItemContext.Provider>
   )
 }
