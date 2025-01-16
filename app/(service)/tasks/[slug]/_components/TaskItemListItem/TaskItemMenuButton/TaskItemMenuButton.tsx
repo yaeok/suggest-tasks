@@ -6,7 +6,6 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import TaskItemCompleteButton from './TaskItemComplete/TaskItemCompleteButton'
 import TaskItemDeleteButton from './TaskItemDelete/TaskItemDeleteButton'
 import TaskItemEditButton from './TaskItemEdit/TaskItemEditButton'
-import TaskItemWorkButton from './TaskItemWork/TaskItemWorkButton'
 
 export default function TaskItemMenuButton() {
   const [isOpen, setIsOpen] = useState(false)
@@ -29,8 +28,6 @@ export default function TaskItemMenuButton() {
               <TaskItemDeleteButton />
 
               <TaskItemCompleteButton />
-
-              <TaskItemWorkButton />
             </div>
           </div>
         )}

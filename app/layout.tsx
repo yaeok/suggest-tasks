@@ -3,9 +3,10 @@ import './globals.css'
 
 import { Shippori_Mincho } from 'next/font/google'
 
-export const shippori_mincho = Shippori_Mincho({
+const shippori_mincho = Shippori_Mincho({
   subsets: ['latin'],
   weight: '400',
+  variable: '--mincho',
   display: 'swap',
 })
 
