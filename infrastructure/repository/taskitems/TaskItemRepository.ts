@@ -5,4 +5,5 @@ export interface TaskItemRepository {
     taskItems: TaskItem[]
     taskId: string
   }): Promise<TaskItem[]>
+  getTaskItemsByTaskId(args: { taskId: string }): Promise<TaskItem[]>
 }

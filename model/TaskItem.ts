@@ -6,6 +6,7 @@ export class TaskItem {
   startDate: Date
   endDate: Date
   duration: number
+  priority: number
   reference: string | null
   isCompleted: boolean
   completedAt: Date | null
@@ -20,6 +21,7 @@ export class TaskItem {
     startDate: Date
     endDate: Date
     duration: number
+    priority: number
     reference: string | null
     isCompleted: boolean
     completedAt: Date | null
@@ -34,6 +36,7 @@ export class TaskItem {
       startDate,
       endDate,
       duration,
+      priority,
       reference,
       isCompleted,
       completedAt,
@@ -48,6 +51,7 @@ export class TaskItem {
     this.startDate = startDate
     this.endDate = endDate
     this.duration = duration
+    this.priority = priority
     this.reference = reference
     this.isCompleted = isCompleted
     this.completedAt = completedAt
